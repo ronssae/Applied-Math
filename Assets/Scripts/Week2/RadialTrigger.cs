@@ -33,7 +33,7 @@ public class RadialTrigger : MonoBehaviour
         }
         else
         {
-            isInside= false;
+            isInside = false;
         }
         Handles.color = isInside ? Color.red : Color.green;
         Handles.DrawWireDisc(origin, new Vector3(0, 0, 1), radius);
