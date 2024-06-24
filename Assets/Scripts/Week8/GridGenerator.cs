@@ -1,4 +1,5 @@
-using System.Collections;
+
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,7 +56,7 @@ public class GridGenerator : MonoBehaviour
         }
     }
     #endregion
-
+    #region Assign Material
     public void AssignMaterial()
     {
         //Find All GameObject with Tag as Tile
@@ -67,4 +68,15 @@ public class GridGenerator : MonoBehaviour
             t.GetComponent<Renderer>().material = mat;
         }
     }
+    #endregion
+    #region Assign Tile Script
+    public void AssignTileScript()
+    {
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+        foreach(GameObject t in tiles)
+        {
+            t.AddComponent<Tile>();
+        }
+    }
+    #endregion
 }
