@@ -33,7 +33,51 @@ public class MovementAI : MonoBehaviour
     }
     public Tile GetTargetTile(GameObject Target)
     {
+        RaycastHit hit;
         Tile tile = null;
+        if (Physics.Raycast(Target.transform.position, Vector3.down, out hit, 1))
+        {
+            tile = hit.collider.GetComponent<Tile>();
+        }
         return tile;
+    }
+
+    public void ComputeAdjacencyList()
+    {
+        foreach(GameObject tile in Tiles) 
+        {
+            Tile t = tile.GetComponent<Tile>();
+            t.FindNeighbors(JumpHeight);
+        }
+    }
+
+    public void FindSelectableTiles()
+    {
+        ComputeAdjacencyList();
+        GetCurrentTile();
+
+        Queue<Tile> process = new Queue<Tile>();
+        process.Enqueue(CurrentTile);
+        CurrentTile.Visited = true;
+        while(process.Count > 0)
+        {
+            Tile t = process.Dequeue();
+
+            SelectableTiles.Add(t);
+            t.Selectable = true;
+            if (t.Distance < Move)
+            {
+                foreach (Tile tile in t.AdjacencyList)
+                {
+                    if (!tile.Visited)
+                    {
+                        tile.Parent = t;
+                        tile.Visited = true;
+                        tile.Distance = 1 + t.Distance;
+                        process.Enqueue(tile);
+                    }
+                }
+            }
+        }
     }
 }

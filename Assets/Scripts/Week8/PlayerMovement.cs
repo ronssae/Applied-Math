@@ -13,6 +13,6 @@ public class PlayerMovement : MovementAI
     // Update is called once per frame
     void Update()
     {
-        
+        FindSelectableTiles();
     }
 }

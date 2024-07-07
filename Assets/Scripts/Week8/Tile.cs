@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public bool currentTile;
-    public bool targetTile;
-    public bool Selectable;
-    public bool Walkable;
+    public bool currentTile = false;
+    public bool targetTile = false;
+    public bool Selectable = false;
+    public bool Walkable = true;
 
     //Needed for BFS
     public bool Visited = false;
     public Tile Parent = null;
     public int Distance = 0;
 
-    public List<Tile> AdjacencyList = new();
+    public List<Tile> AdjacencyList = new List<Tile>();
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
     {
         if (currentTile)
         {
-            GetComponent<Renderer>().material.color = Color.blue;
+            GetComponent<Renderer>().material.color = Color.green;
         }
         else if (targetTile)
         {
@@ -34,11 +34,11 @@ public class Tile : MonoBehaviour
         }
         else if (Selectable)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            GetComponent<Renderer>().material.color = Color.blue;
         }
         else
         {
-            GetComponent<Renderer>().material.color = Color.gray;
+            GetComponent<Renderer>().material.color = Color.white;
         }
     }
 
